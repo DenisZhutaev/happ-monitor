@@ -1,0 +1,23 @@
+name: Build and test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build with an explicit ad-hoc signature
+        run: HAPP_SIGNING_IDENTITY=- zsh build.sh
+      - name: Run offline self-tests
+        run: '".build/Happ Monitor.app/Contents/MacOS/HappMonitor" --self-test'
