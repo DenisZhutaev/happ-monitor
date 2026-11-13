@@ -12,6 +12,27 @@
 
 Приложение написано на Swift и AppKit. Настройки и история хранятся на Mac. Для сборки не нужны сторонние библиотеки.
 
+## Меню и настройки в действии
+
+<p align="center">
+  <img src="docs/assets/settings-demo.gif" alt="Зелёный HM, раскрытое меню и четыре вкладки настроек Happ Monitor" width="800">
+</p>
+
+Анимация собрана из снимков интерфейса с демонстрационной подпиской и событиями. Верхняя панель показана схематично, чтобы оставить в кадре только HM и меню. Зелёный штрих означает, что проверка трафика прошла.
+
+<details>
+<summary>Рассмотреть отдельные экраны</summary>
+
+[Меню в строке macOS](docs/assets/screenshots/menu-bar.png)
+
+| Основные | Страны | Серверы | История |
+|:---:|:---:|:---:|:---:|
+| [![Основные настройки](docs/assets/screenshots/settings-general.png)](docs/assets/screenshots/settings-general.png) | [![Исключение стран](docs/assets/screenshots/settings-countries.png)](docs/assets/screenshots/settings-countries.png) | [![Настройки серверов](docs/assets/screenshots/settings-servers.png)](docs/assets/screenshots/settings-servers.png) | [![История соединений](docs/assets/screenshots/settings-history.png)](docs/assets/screenshots/settings-history.png) |
+
+Нажмите миниатюру, чтобы открыть полный снимок.
+
+</details>
+
 ## Что умеет
 
 | Возможность | Как работает |
