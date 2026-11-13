@@ -1,0 +1,13 @@
+.build/
+*.app/
+.DS_Store
+outputs/
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+*.mobileprovision
+*.zip
+*.log
