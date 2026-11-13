@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="title description">
+  <title id="title">Happ Monitor</title>
+  <desc id="description">Монитор VPN в строке меню macOS. Монограмма HM с зелёным штрихом и три состояния соединения.</desc>
+  <rect x="1" y="1" width="1198" height="338" rx="24" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+  <g transform="translate(67 74) scale(5)" fill="none" stroke="#f0f6fc" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 3v14 M3 10h9 M12 17V3l7 8 7-8v14"/>
+    <path d="M12 5v10" stroke="#3fb950"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif">
+    <text x="260" y="117" fill="#f0f6fc" font-size="50" font-weight="700" letter-spacing="-1">Happ Monitor</text>
+    <text x="262" y="161" fill="#c9d1d9" font-size="23">VPN под контролем. Прямо в строке меню macOS.</text>
+    <text x="262" y="198" fill="#8b949e" font-size="18">Проверка трафика · Автовосстановление · Настройки серверов</text>
+    <g transform="translate(66 260)">
+      <circle cx="8" cy="0" r="7" fill="#3fb950"/>
+      <text x="29" y="6" fill="#c9d1d9" font-size="17">Трафик проходит</text>
+      <circle cx="366" cy="0" r="7" fill="#d29922"/>
+      <text x="387" y="6" fill="#c9d1d9" font-size="17">Нужна проверка</text>
+      <circle cx="725" cy="0" r="7" fill="#f85149"/>
+      <text x="746" y="6" fill="#c9d1d9" font-size="17">VPN отключён</text>
+    </g>
+  </g>
+</svg>
