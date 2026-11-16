@@ -1,0 +1,1220 @@
+{
+  "Настройки Happ Monitor": {
+    "en": "Happ Monitor Settings",
+    "zh-Hans": "Happ Monitor 设置",
+    "es": "Ajustes de Happ Monitor",
+    "fr": "Réglages de Happ Monitor",
+    "ar": "إعدادات Happ Monitor"
+  },
+  "Основные": {
+    "en": "General",
+    "zh-Hans": "通用",
+    "es": "General",
+    "fr": "Général",
+    "ar": "عام"
+  },
+  "Страны": {
+    "en": "Countries",
+    "zh-Hans": "国家和地区",
+    "es": "Países",
+    "fr": "Pays",
+    "ar": "البلدان"
+  },
+  "Серверы": {
+    "en": "Servers",
+    "zh-Hans": "服务器",
+    "es": "Servidores",
+    "fr": "Serveurs",
+    "ar": "الخوادم"
+  },
+  "История": {
+    "en": "History",
+    "zh-Hans": "历史记录",
+    "es": "Historial",
+    "fr": "Historique",
+    "ar": "السجل"
+  },
+  "Язык": {
+    "en": "Language",
+    "zh-Hans": "语言",
+    "es": "Idioma",
+    "fr": "Langue",
+    "ar": "اللغة"
+  },
+  "Язык интерфейса": {
+    "en": "Interface language",
+    "zh-Hans": "界面语言",
+    "es": "Idioma de la interfaz",
+    "fr": "Langue de l’interface",
+    "ar": "لغة الواجهة"
+  },
+  "Язык меняется сразу. Язык Happ на эту настройку не влияет.": {
+    "en": "Changes apply immediately. Happ's language is separate.",
+    "zh-Hans": "更改立即生效。Happ 的语言独立设置。",
+    "es": "Los cambios se aplican al instante. El idioma de Happ es independiente.",
+    "fr": "Les changements sont immédiats. La langue de Happ est indépendante.",
+    "ar": "تُطبّق التغييرات فورًا. لغة Happ مستقلة عن هذا الإعداد."
+  },
+  "Зелёный: трафик через VPN проходит. Жёлтый: проверка ещё не завершена или контрольные запросы не проходят. Красный: VPN отключён.": {
+    "en": "Green: traffic is passing. Yellow: checking or test requests failed. Red: disconnected.",
+    "zh-Hans": "绿色：流量正常。黄色：正在检查或测试请求失败。红色：未连接。",
+    "es": "Verde: el tráfico funciona. Amarillo: comprobando o fallaron las solicitudes. Rojo: desconectado.",
+    "fr": "Vert : le trafic passe. Jaune : vérification en cours ou échec des requêtes. Rouge : déconnecté.",
+    "ar": "الأخضر: حركة البيانات تعمل. الأصفر: جارٍ الفحص أو فشلت طلبات الاختبار. الأحمر: غير متصل."
+  },
+  "Проверка выполняется каждые 20 секунд запросами к Google или Cloudflare. Названия серверов и данные подписки им не передаются.": {
+    "en": "Checks run every 20 seconds using Google or Cloudflare. Server names and subscription data are not sent.",
+    "zh-Hans": "每 20 秒通过 Google 或 Cloudflare 检查一次。不会发送服务器名称或订阅数据。",
+    "es": "Se comprueba cada 20 segundos con Google o Cloudflare. No se envían nombres de servidores ni datos de suscripción.",
+    "fr": "Vérification toutes les 20 secondes via Google ou Cloudflare. Aucun nom de serveur ni donnée d’abonnement n’est envoyé.",
+    "ar": "يُجرى الفحص كل 20 ثانية عبر Google أو Cloudflare. لا تُرسل أسماء الخوادم أو بيانات الاشتراك."
+  },
+  "Автовосстановление": {
+    "en": "Automatic recovery",
+    "zh-Hans": "自动恢复",
+    "es": "Recuperación automática",
+    "fr": "Rétablissement automatique",
+    "ar": "الاستعادة التلقائية"
+  },
+  "Уведомлять, если восстановить VPN не удалось": {
+    "en": "Notify when recovery fails",
+    "zh-Hans": "恢复失败时通知",
+    "es": "Avisar si falla la recuperación",
+    "fr": "Notifier en cas d’échec du rétablissement",
+    "ar": "الإشعار عند فشل الاستعادة"
+  },
+  "Также уведомлять об успешном восстановлении": {
+    "en": "Also notify on successful recovery",
+    "zh-Hans": "恢复成功时也通知",
+    "es": "Avisar también al recuperar la conexión",
+    "fr": "Notifier aussi lorsque la connexion est rétablie",
+    "ar": "الإشعار أيضًا عند نجاح الاستعادة"
+  },
+  "Не выбирать серверы с неизвестной страной": {
+    "en": "Skip servers with an unknown country",
+    "zh-Hans": "跳过国家未知的服务器",
+    "es": "Omitir servidores de país desconocido",
+    "fr": "Ignorer les serveurs dont le pays est inconnu",
+    "ar": "تجاهل الخوادم ذات البلد غير المعروف"
+  },
+  "Страны исключаются галочками. Если страна сервера не определилась, укажите её на вкладке «Серверы».": {
+    "en": "Use checkboxes to exclude countries. Set an unknown country in the Servers tab.",
+    "zh-Hans": "勾选以排除国家。在“服务器”标签页中设置未知国家。",
+    "es": "Excluya países con las casillas. Asigne los países desconocidos en Servidores.",
+    "fr": "Cochez les pays à exclure. Définissez les pays inconnus dans l’onglet Serveurs.",
+    "ar": "استخدم مربعات الاختيار لاستبعاد البلدان. حدّد البلد غير المعروف في تبويب الخوادم."
+  },
+  "Для переключения серверов может понадобиться открытое окно Happ. Сама проверка соединения работает в фоне.": {
+    "en": "Switching servers may require an open Happ window. Connection checks run in the background.",
+    "zh-Hans": "切换服务器可能需要打开 Happ 窗口。连接检查在后台运行。",
+    "es": "Puede ser necesario abrir Happ para cambiar de servidor. La comprobación funciona en segundo plano.",
+    "fr": "Le changement de serveur peut nécessiter une fenêtre Happ ouverte. La vérification fonctionne en arrière-plan.",
+    "ar": "قد يتطلب تبديل الخوادم فتح نافذة Happ. يعمل فحص الاتصال في الخلفية."
+  },
+  "Настройки сохраняются сразу. Неудачный сервер исключается на 10 минут. При выборе учитываются три замера и история подключений.": {
+    "en": "Settings save immediately. Failed servers are skipped for 10 minutes. Selection uses three measurements and connection history.",
+    "zh-Hans": "设置立即保存。失败的服务器会被跳过 10 分钟。选择依据三次测量和连接历史。",
+    "es": "Los ajustes se guardan al instante. Los servidores fallidos se omiten 10 minutos. Se usan tres mediciones y el historial.",
+    "fr": "Les réglages sont enregistrés immédiatement. Un serveur en échec est ignoré 10 minutes. Le choix utilise trois mesures et l’historique.",
+    "ar": "تُحفظ الإعدادات فورًا. يُتجاهل الخادم الذي فشل لمدة 10 دقائق. يعتمد الاختيار على ثلاثة قياسات وسجل الاتصال."
+  },
+  "Пауза 15 мин": {
+    "en": "Pause 15 min",
+    "zh-Hans": "暂停 15 分钟",
+    "es": "Pausa 15 min",
+    "fr": "Pause 15 min",
+    "ar": "إيقاف 15 دقيقة"
+  },
+  "Пауза на час": {
+    "en": "Pause 1 hour",
+    "zh-Hans": "暂停 1 小时",
+    "es": "Pausa 1 hora",
+    "fr": "Pause 1 heure",
+    "ar": "إيقاف ساعة"
+  },
+  "До включения": {
+    "en": "Until resumed",
+    "zh-Hans": "直到手动恢复",
+    "es": "Hasta reanudar",
+    "fr": "Jusqu’à la reprise",
+    "ar": "حتى الاستئناف"
+  },
+  "Возобновить": {
+    "en": "Resume",
+    "zh-Hans": "恢复",
+    "es": "Reanudar",
+    "fr": "Reprendre",
+    "ar": "استئناف"
+  },
+  "Найти страну по названию или коду": {
+    "en": "Search country by name or code",
+    "zh-Hans": "按名称或代码搜索国家",
+    "es": "Buscar país por nombre o código",
+    "fr": "Rechercher un pays par nom ou code",
+    "ar": "البحث عن بلد بالاسم أو الرمز"
+  },
+  "Поиск страны": {
+    "en": "Country search",
+    "zh-Hans": "搜索国家",
+    "es": "Buscar país",
+    "fr": "Recherche de pays",
+    "ar": "البحث عن بلد"
+  },
+  "Подписка не определена. Откройте Happ и выберите сервер.": {
+    "en": "Subscription unknown. Open Happ and select a server.",
+    "zh-Hans": "订阅未知。请打开 Happ 并选择服务器。",
+    "es": "Suscripción desconocida. Abra Happ y elija un servidor.",
+    "fr": "Abonnement inconnu. Ouvrez Happ et choisissez un serveur.",
+    "ar": "الاشتراك غير معروف. افتح Happ واختر خادمًا."
+  },
+  "Закреплённый сервер:": {
+    "en": "Pinned server:",
+    "zh-Hans": "固定服务器：",
+    "es": "Servidor fijado:",
+    "fr": "Serveur épinglé :",
+    "ar": "الخادم المثبّت:"
+  },
+  "Автоматический выбор": {
+    "en": "Automatic selection",
+    "zh-Hans": "自动选择",
+    "es": "Selección automática",
+    "fr": "Sélection automatique",
+    "ar": "اختيار تلقائي"
+  },
+  "При закреплении другие серверы не выбираются. Исключения стран и серверов имеют приоритет.": {
+    "en": "When pinned, no other server is selected. Country and server exclusions take priority.",
+    "zh-Hans": "固定后不会选择其他服务器。国家和服务器排除规则优先。",
+    "es": "Al fijar un servidor no se eligen otros. Las exclusiones tienen prioridad.",
+    "fr": "Un serveur épinglé empêche le choix d’un autre. Les exclusions restent prioritaires.",
+    "ar": "عند التثبيت، لا يُختار خادم آخر. استثناءات البلدان والخوادم لها الأولوية."
+  },
+  "не определена": {
+    "en": "unknown",
+    "zh-Hans": "未知",
+    "es": "desconocida",
+    "fr": "inconnu",
+    "ar": "غير معروف"
+  },
+  "не определён": {
+    "en": "unknown",
+    "zh-Hans": "未知",
+    "es": "desconocido",
+    "fr": "inconnu",
+    "ar": "غير معروف"
+  },
+  "подписка не определена": {
+    "en": "subscription unknown",
+    "zh-Hans": "订阅未知",
+    "es": "suscripción desconocida",
+    "fr": "abonnement inconnu",
+    "ar": "الاشتراك غير معروف"
+  },
+  "Авто: ": {
+    "en": "Auto: ",
+    "zh-Hans": "自动：",
+    "es": "Auto: ",
+    "fr": "Auto : ",
+    "ar": "تلقائي: "
+  },
+  "Страна сервера: %@": {
+    "en": "Server country: {0}",
+    "zh-Hans": "服务器国家：{0}",
+    "es": "País del servidor: {0}",
+    "fr": "Pays du serveur : {0}",
+    "ar": "بلد الخادم: {0}"
+  },
+  "Запрет": {
+    "en": "Exclude",
+    "zh-Hans": "排除",
+    "es": "Excluir",
+    "fr": "Exclure",
+    "ar": "استبعاد"
+  },
+  "Избранный": {
+    "en": "Favorite",
+    "zh-Hans": "收藏",
+    "es": "Favorito",
+    "fr": "Favori",
+    "ar": "مفضّل"
+  },
+  "Запретить сервер: %@": {
+    "en": "Exclude server: {0}",
+    "zh-Hans": "排除服务器：{0}",
+    "es": "Excluir servidor: {0}",
+    "fr": "Exclure le serveur : {0}",
+    "ar": "استبعاد الخادم: {0}"
+  },
+  "Избранный сервер: %@": {
+    "en": "Favorite server: {0}",
+    "zh-Hans": "收藏服务器：{0}",
+    "es": "Servidor favorito: {0}",
+    "fr": "Serveur favori : {0}",
+    "ar": "الخادم المفضّل: {0}"
+  },
+  "Событий пока нет.": {
+    "en": "No events yet.",
+    "zh-Hans": "暂无事件。",
+    "es": "Aún no hay eventos.",
+    "fr": "Aucun événement pour le moment.",
+    "ar": "لا توجد أحداث بعد."
+  },
+  "Событий пока нет": {
+    "en": "No events yet",
+    "zh-Hans": "暂无事件",
+    "es": "Aún no hay eventos",
+    "fr": "Aucun événement",
+    "ar": "لا توجد أحداث بعد"
+  },
+  "Ничего не найдено": {
+    "en": "No results",
+    "zh-Hans": "未找到结果",
+    "es": "Sin resultados",
+    "fr": "Aucun résultat",
+    "ar": "لا توجد نتائج"
+  },
+  "Исключение запрещает автовыбор. Избранное даёт небольшой приоритет.": {
+    "en": "Exclusions prevent automatic selection. Favorites get a small priority boost.",
+    "zh-Hans": "排除项不会被自动选择。收藏项获得少量优先权。",
+    "es": "Las exclusiones impiden la selección automática. Los favoritos reciben una pequeña prioridad.",
+    "fr": "Les exclusions empêchent la sélection automatique. Les favoris bénéficient d’une légère priorité.",
+    "ar": "تمنع الاستثناءات الاختيار التلقائي. تحصل المفضّلات على أولوية بسيطة."
+  },
+  "Исключить": {
+    "en": "Exclude",
+    "zh-Hans": "排除",
+    "es": "Excluir",
+    "fr": "Exclure",
+    "ar": "استبعاد"
+  },
+  "Избранная": {
+    "en": "Favorite",
+    "zh-Hans": "收藏",
+    "es": "Favorito",
+    "fr": "Favori",
+    "ar": "مفضّل"
+  },
+  "Исключить: %@": {
+    "en": "Exclude: {0}",
+    "zh-Hans": "排除：{0}",
+    "es": "Excluir: {0}",
+    "fr": "Exclure : {0}",
+    "ar": "استبعاد: {0}"
+  },
+  "Избранная страна: %@": {
+    "en": "Favorite country: {0}",
+    "zh-Hans": "收藏国家：{0}",
+    "es": "País favorito: {0}",
+    "fr": "Pays favori : {0}",
+    "ar": "البلد المفضّل: {0}"
+  },
+  "Проверка соединения…": {
+    "en": "Checking connection…",
+    "zh-Hans": "正在检查连接…",
+    "es": "Comprobando conexión…",
+    "fr": "Vérification de la connexion…",
+    "ar": "جارٍ فحص الاتصال…"
+  },
+  "Автовосстановление готово": {
+    "en": "Automatic recovery ready",
+    "zh-Hans": "自动恢复已就绪",
+    "es": "Recuperación automática lista",
+    "fr": "Rétablissement automatique prêt",
+    "ar": "الاستعادة التلقائية جاهزة"
+  },
+  "Happ: трафик через туннель проходит": {
+    "en": "Happ: traffic is passing through the tunnel",
+    "zh-Hans": "Happ：隧道流量正常",
+    "es": "Happ: el tráfico pasa por el túnel",
+    "fr": "Happ : le trafic passe par le tunnel",
+    "ar": "Happ: حركة البيانات تمر عبر النفق"
+  },
+  "Happ: контрольные запросы через VPN не проходят": {
+    "en": "Happ: connection test requests failed",
+    "zh-Hans": "Happ：连接测试请求失败",
+    "es": "Happ: fallaron las solicitudes de prueba",
+    "fr": "Happ : échec des requêtes de test",
+    "ar": "Happ: فشلت طلبات اختبار الاتصال"
+  },
+  "Happ: VPN подключён, трафик пока не подтверждён": {
+    "en": "Happ: connected, traffic not yet verified",
+    "zh-Hans": "Happ：已连接，流量尚未验证",
+    "es": "Happ: conectado, tráfico aún sin verificar",
+    "fr": "Happ : connecté, trafic non encore vérifié",
+    "ar": "Happ: متصل، لم يتم التحقق من حركة البيانات بعد"
+  },
+  "Happ: VPN отключён": {
+    "en": "Happ: disconnected",
+    "zh-Hans": "Happ：未连接",
+    "es": "Happ: desconectado",
+    "fr": "Happ : déconnecté",
+    "ar": "Happ: غير متصل"
+  },
+  "Happ: подключение…": {
+    "en": "Happ: connecting…",
+    "zh-Hans": "Happ：正在连接…",
+    "es": "Happ: conectando…",
+    "fr": "Happ : connexion…",
+    "ar": "Happ: جارٍ الاتصال…"
+  },
+  "Happ: отключение…": {
+    "en": "Happ: disconnecting…",
+    "zh-Hans": "Happ：正在断开…",
+    "es": "Happ: desconectando…",
+    "fr": "Happ : déconnexion…",
+    "ar": "Happ: جارٍ قطع الاتصال…"
+  },
+  "Happ: статус неизвестен": {
+    "en": "Happ: status unknown",
+    "zh-Hans": "Happ：状态未知",
+    "es": "Happ: estado desconocido",
+    "fr": "Happ : état inconnu",
+    "ar": "Happ: الحالة غير معروفة"
+  },
+  "Подписка: %@": {
+    "en": "Subscription: {0}",
+    "zh-Hans": "订阅：{0}",
+    "es": "Suscripción: {0}",
+    "fr": "Abonnement : {0}",
+    "ar": "الاشتراك: {0}"
+  },
+  "Сервер: %@": {
+    "en": "Server: {0}",
+    "zh-Hans": "服务器：{0}",
+    "es": "Servidor: {0}",
+    "fr": "Serveur : {0}",
+    "ar": "الخادم: {0}"
+  },
+  "HTTPS через туннель: %@ мс": {
+    "en": "HTTPS through tunnel: {0} ms",
+    "zh-Hans": "隧道 HTTPS：{0} 毫秒",
+    "es": "HTTPS por el túnel: {0} ms",
+    "fr": "HTTPS via le tunnel : {0} ms",
+    "ar": "HTTPS عبر النفق: {0} مللي ثانية"
+  },
+  "Последняя проверка трафика: %@": {
+    "en": "Last traffic check: {0}",
+    "zh-Hans": "上次流量检查：{0}",
+    "es": "Última comprobación: {0}",
+    "fr": "Dernière vérification : {0}",
+    "ar": "آخر فحص للبيانات: {0}"
+  },
+  "Пауза до ручного включения": {
+    "en": "Paused until manually resumed",
+    "zh-Hans": "已暂停，直到手动恢复",
+    "es": "En pausa hasta reanudar manualmente",
+    "fr": "En pause jusqu’à la reprise manuelle",
+    "ar": "متوقف مؤقتًا حتى الاستئناف اليدوي"
+  },
+  "Пауза до %@": {
+    "en": "Paused until {0}",
+    "zh-Hans": "暂停至 {0}",
+    "es": "En pausa hasta {0}",
+    "fr": "En pause jusqu’à {0}",
+    "ar": "متوقف مؤقتًا حتى {0}"
+  },
+  "Соединение наблюдается: %@": {
+    "en": "Connection observed: {0}",
+    "zh-Hans": "连接持续时间：{0}",
+    "es": "Conexión observada: {0}",
+    "fr": "Connexion observée : {0}",
+    "ar": "مدة مراقبة الاتصال: {0}"
+  },
+  "Автовосстановление · %@": {
+    "en": "Automatic recovery · {0}",
+    "zh-Hans": "自动恢复 · {0}",
+    "es": "Recuperación automática · {0}",
+    "fr": "Rétablissement automatique · {0}",
+    "ar": "الاستعادة التلقائية · {0}"
+  },
+  "Проверить и подобрать сервер": {
+    "en": "Check and select a server",
+    "zh-Hans": "检查并选择服务器",
+    "es": "Comprobar y elegir servidor",
+    "fr": "Vérifier et choisir un serveur",
+    "ar": "فحص واختيار خادم"
+  },
+  "Проверить трафик сейчас": {
+    "en": "Check traffic now",
+    "zh-Hans": "立即检查流量",
+    "es": "Comprobar tráfico ahora",
+    "fr": "Vérifier le trafic maintenant",
+    "ar": "فحص البيانات الآن"
+  },
+  "Отключить VPN на время": {
+    "en": "Pause connection",
+    "zh-Hans": "暂停连接",
+    "es": "Pausar conexión",
+    "fr": "Suspendre la connexion",
+    "ar": "إيقاف الاتصال مؤقتًا"
+  },
+  "На 15 минут": {
+    "en": "For 15 minutes",
+    "zh-Hans": "15 分钟",
+    "es": "Durante 15 minutos",
+    "fr": "Pendant 15 minutes",
+    "ar": "لمدة 15 دقيقة"
+  },
+  "На час": {
+    "en": "For one hour",
+    "zh-Hans": "1 小时",
+    "es": "Durante una hora",
+    "fr": "Pendant une heure",
+    "ar": "لمدة ساعة"
+  },
+  "До ручного включения": {
+    "en": "Until manually resumed",
+    "zh-Hans": "直到手动恢复",
+    "es": "Hasta reanudar manualmente",
+    "fr": "Jusqu’à la reprise manuelle",
+    "ar": "حتى الاستئناف اليدوي"
+  },
+  "Возобновить VPN": {
+    "en": "Resume connection",
+    "zh-Hans": "恢复连接",
+    "es": "Reanudar conexión",
+    "fr": "Reprendre la connexion",
+    "ar": "استئناف الاتصال"
+  },
+  "Настройки стран и серверов…": {
+    "en": "Country and server settings…",
+    "zh-Hans": "国家和服务器设置…",
+    "es": "Ajustes de países y servidores…",
+    "fr": "Réglages des pays et serveurs…",
+    "ar": "إعدادات البلدان والخوادم…"
+  },
+  "История соединений…": {
+    "en": "Connection history…",
+    "zh-Hans": "连接历史…",
+    "es": "Historial de conexiones…",
+    "fr": "Historique des connexions…",
+    "ar": "سجل الاتصالات…"
+  },
+  "Последние события": {
+    "en": "Recent events",
+    "zh-Hans": "最近事件",
+    "es": "Eventos recientes",
+    "fr": "Événements récents",
+    "ar": "الأحداث الأخيرة"
+  },
+  "Открыть Happ": {
+    "en": "Open Happ",
+    "zh-Hans": "打开 Happ",
+    "es": "Abrir Happ",
+    "fr": "Ouvrir Happ",
+    "ar": "فتح Happ"
+  },
+  "Разрешить управление Happ…": {
+    "en": "Allow control of Happ…",
+    "zh-Hans": "允许控制 Happ…",
+    "es": "Permitir controlar Happ…",
+    "fr": "Autoriser le contrôle de Happ…",
+    "ar": "السماح بالتحكم في Happ…"
+  },
+  "Запускать при входе": {
+    "en": "Launch at login",
+    "zh-Hans": "登录时启动",
+    "es": "Abrir al iniciar sesión",
+    "fr": "Ouvrir à la connexion",
+    "ar": "التشغيل عند تسجيل الدخول"
+  },
+  "Завершить Happ Monitor": {
+    "en": "Quit Happ Monitor",
+    "zh-Hans": "退出 Happ Monitor",
+    "es": "Salir de Happ Monitor",
+    "fr": "Quitter Happ Monitor",
+    "ar": "إنهاء Happ Monitor"
+  },
+  "Подготовка списка серверов…": {
+    "en": "Preparing server list…",
+    "zh-Hans": "正在准备服务器列表…",
+    "es": "Preparando lista de servidores…",
+    "fr": "Préparation de la liste des serveurs…",
+    "ar": "جارٍ إعداد قائمة الخوادم…"
+  },
+  "Замер пинга %@ из 3…": {
+    "en": "Latency measurement {0} of 3…",
+    "zh-Hans": "延迟测量 {0}/3…",
+    "es": "Medición de latencia {0} de 3…",
+    "fr": "Mesure de latence {0} sur 3…",
+    "ar": "قياس زمن الاستجابة {0} من 3…"
+  },
+  "Подключение: %@ · медиана %@ мс": {
+    "en": "Connecting: {0} · median {1} ms",
+    "zh-Hans": "正在连接：{0} · 中位数 {1} 毫秒",
+    "es": "Conectando: {0} · mediana {1} ms",
+    "fr": "Connexion : {0} · médiane {1} ms",
+    "ar": "جارٍ الاتصال: {0} · الوسيط {1} مللي ثانية"
+  },
+  "Подключён: %@ · HTTPS %@ мс": {
+    "en": "Connected: {0} · HTTPS {1} ms",
+    "zh-Hans": "已连接：{0} · HTTPS {1} 毫秒",
+    "es": "Conectado: {0} · HTTPS {1} ms",
+    "fr": "Connecté : {0} · HTTPS {1} ms",
+    "ar": "متصل: {0} · HTTPS {1} مللي ثانية"
+  },
+  "Сохранён работающий сервер: %@; значимого выигрыша по задержке нет": {
+    "en": "Kept working server: {0}; no significant latency improvement",
+    "zh-Hans": "保留正常服务器：{0}；延迟无明显改善",
+    "es": "Se mantiene el servidor {0}; sin mejora significativa de latencia",
+    "fr": "Serveur conservé : {0} ; aucun gain de latence significatif",
+    "ar": "تم الاحتفاظ بالخادم العامل: {0}؛ لا يوجد تحسن ملحوظ في زمن الاستجابة"
+  },
+  "Нужен доступ для управления Happ": {
+    "en": "Permission to control Happ is required",
+    "zh-Hans": "需要控制 Happ 的权限",
+    "es": "Se necesita permiso para controlar Happ",
+    "fr": "Autorisation de contrôler Happ requise",
+    "ar": "يلزم إذن للتحكم في Happ"
+  },
+  "Нужен Универсальный доступ для Happ Monitor": {
+    "en": "Accessibility permission is required for Happ Monitor",
+    "zh-Hans": "Happ Monitor 需要辅助功能权限",
+    "es": "Happ Monitor necesita permiso de Accesibilidad",
+    "fr": "Happ Monitor nécessite l’autorisation Accessibilité",
+    "ar": "يلزم إذن تسهيلات الاستخدام لتطبيق Happ Monitor"
+  },
+  "Нет доступа к списку серверов. Откройте главное окно Happ на текущем рабочем столе": {
+    "en": "Cannot access servers. Open Happ's main window on this desktop",
+    "zh-Hans": "无法访问服务器。请在当前桌面打开 Happ 主窗口",
+    "es": "No se puede acceder a los servidores. Abra Happ en este escritorio",
+    "fr": "Serveurs inaccessibles. Ouvrez la fenêtre principale de Happ sur ce bureau",
+    "ar": "يتعذر الوصول للخوادم. افتح نافذة Happ الرئيسية على سطح المكتب الحالي"
+  },
+  "Не удалось подтвердить завершение свежего замера пинга": {
+    "en": "Could not confirm a fresh latency measurement",
+    "zh-Hans": "无法确认新的延迟测量已完成",
+    "es": "No se pudo confirmar la nueva medición",
+    "fr": "Impossible de confirmer la nouvelle mesure de latence",
+    "ar": "تعذر تأكيد اكتمال قياس زمن الاستجابة الجديد"
+  },
+  "Истекло время восстановления": {
+    "en": "Recovery timed out",
+    "zh-Hans": "恢复超时",
+    "es": "Tiempo de recuperación agotado",
+    "fr": "Délai de rétablissement dépassé",
+    "ar": "انتهت مهلة الاستعادة"
+  },
+  "Автовосстановление выключено": {
+    "en": "Automatic recovery is off",
+    "zh-Hans": "自动恢复已关闭",
+    "es": "Recuperación automática desactivada",
+    "fr": "Rétablissement automatique désactivé",
+    "ar": "الاستعادة التلقائية معطّلة"
+  },
+  "Автовосстановление приостановлено": {
+    "en": "Automatic recovery paused",
+    "zh-Hans": "自动恢复已暂停",
+    "es": "Recuperación automática en pausa",
+    "fr": "Rétablissement automatique en pause",
+    "ar": "الاستعادة التلقائية متوقفة مؤقتًا"
+  },
+  "Выбор сервера изменён в Happ; восстановление остановлено": {
+    "en": "Server changed in Happ; recovery stopped",
+    "zh-Hans": "Happ 中的服务器已更改；恢复已停止",
+    "es": "Servidor cambiado en Happ; recuperación detenida",
+    "fr": "Serveur modifié dans Happ ; rétablissement arrêté",
+    "ar": "تغيّر الخادم في Happ؛ توقفت الاستعادة"
+  },
+  "Сервер больше не разрешён настройками выбора": {
+    "en": "Server is no longer allowed by selection rules",
+    "zh-Hans": "选择规则不再允许此服务器",
+    "es": "El servidor ya no está permitido",
+    "fr": "Le serveur n’est plus autorisé par les règles",
+    "ar": "لم يعد الخادم مسموحًا حسب قواعد الاختيار"
+  },
+  "Подключение или HTTPS-проверка не подтверждены": {
+    "en": "Connection or HTTPS check not confirmed",
+    "zh-Hans": "未确认连接或 HTTPS 检查",
+    "es": "Conexión o prueba HTTPS sin confirmar",
+    "fr": "Connexion ou vérification HTTPS non confirmée",
+    "ar": "لم يتم تأكيد الاتصال أو فحص HTTPS"
+  },
+  "Подписка не определена": {
+    "en": "Subscription unknown",
+    "zh-Hans": "订阅未知",
+    "es": "Suscripción desconocida",
+    "fr": "Abonnement inconnu",
+    "ar": "الاشتراك غير معروف"
+  },
+  "Нет разрешённых стабильных серверов. Проверьте исключения, закрепление и временные блокировки": {
+    "en": "No allowed stable servers. Check exclusions, pinned server and temporary blocks",
+    "zh-Hans": "没有允许使用的稳定服务器。请检查排除规则、固定服务器和临时封锁",
+    "es": "No hay servidores estables permitidos. Revise exclusiones, fijación y bloqueos temporales",
+    "fr": "Aucun serveur stable autorisé. Vérifiez les exclusions, l’épinglage et les blocages temporaires",
+    "ar": "لا توجد خوادم مستقرة مسموحة. راجع الاستثناءات والتثبيت والحظر المؤقت"
+  },
+  "Разрешённые серверы проверены, восстановить VPN не удалось": {
+    "en": "All allowed servers checked; connection could not be restored",
+    "zh-Hans": "已检查所有允许的服务器；无法恢复连接",
+    "es": "Se comprobaron los servidores permitidos; no se pudo restablecer la conexión",
+    "fr": "Tous les serveurs autorisés ont été testés ; connexion non rétablie",
+    "ar": "تم فحص جميع الخوادم المسموحة؛ تعذرت استعادة الاتصال"
+  },
+  "Интерфейс туннеля не определён": {
+    "en": "Tunnel interface unavailable",
+    "zh-Hans": "隧道接口不可用",
+    "es": "Interfaz del túnel no disponible",
+    "fr": "Interface du tunnel indisponible",
+    "ar": "واجهة النفق غير متاحة"
+  },
+  "HTTPS через туннель работает": {
+    "en": "HTTPS through the tunnel is working",
+    "zh-Hans": "隧道 HTTPS 正常",
+    "es": "HTTPS por el túnel funciona",
+    "fr": "HTTPS fonctionne via le tunnel",
+    "ar": "HTTPS يعمل عبر النفق"
+  },
+  "Контрольные HTTPS-запросы через туннель не прошли": {
+    "en": "HTTPS test requests through the tunnel failed",
+    "zh-Hans": "隧道 HTTPS 测试请求失败",
+    "es": "Fallaron las solicitudes HTTPS por el túnel",
+    "fr": "Échec des requêtes HTTPS via le tunnel",
+    "ar": "فشلت طلبات اختبار HTTPS عبر النفق"
+  },
+  "Трафик через туннель не проходит": {
+    "en": "Traffic is not passing through the tunnel",
+    "zh-Hans": "隧道流量无法通过",
+    "es": "El tráfico no pasa por el túnel",
+    "fr": "Le trafic ne passe pas par le tunnel",
+    "ar": "لا تمر البيانات عبر النفق"
+  },
+  "Уведомления отключены в macOS": {
+    "en": "Notifications are disabled in macOS",
+    "zh-Hans": "macOS 通知已关闭",
+    "es": "Notificaciones desactivadas en macOS",
+    "fr": "Notifications désactivées dans macOS",
+    "ar": "الإشعارات معطّلة في macOS"
+  },
+  "Разрешите их в разделе «Системные настройки → Уведомления → Happ Monitor», затем включите эту настройку снова.": {
+    "en": "Allow notifications in System Settings → Notifications → Happ Monitor, then enable this option again.",
+    "zh-Hans": "请在“系统设置 → 通知 → Happ Monitor”中允许通知，然后重新启用此选项。",
+    "es": "Permita las notificaciones en Ajustes del Sistema → Notificaciones → Happ Monitor y active esta opción de nuevo.",
+    "fr": "Autorisez les notifications dans Réglages Système → Notifications → Happ Monitor, puis réactivez cette option.",
+    "ar": "اسمح بالإشعارات في إعدادات النظام ← الإشعارات ← Happ Monitor، ثم فعّل هذا الخيار مجددًا."
+  },
+  "VPN восстановлен": {
+    "en": "Connection restored",
+    "zh-Hans": "连接已恢复",
+    "es": "Conexión restablecida",
+    "fr": "Connexion rétablie",
+    "ar": "تمت استعادة الاتصال"
+  },
+  "Не удалось восстановить VPN": {
+    "en": "Could not restore connection",
+    "zh-Hans": "无法恢复连接",
+    "es": "No se pudo restablecer la conexión",
+    "fr": "Impossible de rétablir la connexion",
+    "ar": "تعذرت استعادة الاتصال"
+  },
+  "Не удалось изменить автозапуск": {
+    "en": "Could not change login setting",
+    "zh-Hans": "无法更改登录启动设置",
+    "es": "No se pudo cambiar el inicio automático",
+    "fr": "Impossible de modifier le lancement à la connexion",
+    "ar": "تعذر تغيير إعداد التشغيل عند الدخول"
+  },
+  "Happ Monitor запущен": {
+    "en": "Happ Monitor started",
+    "zh-Hans": "Happ Monitor 已启动",
+    "es": "Happ Monitor iniciado",
+    "fr": "Happ Monitor démarré",
+    "ar": "تم تشغيل Happ Monitor"
+  },
+  "Проверка после пробуждения": {
+    "en": "Checking after wake",
+    "zh-Hans": "唤醒后检查",
+    "es": "Comprobación al despertar",
+    "fr": "Vérification après réveil",
+    "ar": "الفحص بعد الاستيقاظ"
+  },
+  "Mac вышел из сна; состояние проверяется заново": {
+    "en": "Mac woke up; checking state again",
+    "zh-Hans": "Mac 已唤醒；正在重新检查状态",
+    "es": "Mac despertó; comprobando el estado",
+    "fr": "Mac réveillé ; nouvelle vérification",
+    "ar": "استيقظ Mac؛ جارٍ فحص الحالة مجددًا"
+  },
+  "Пауза завершена; автовосстановление возобновлено": {
+    "en": "Pause ended; automatic recovery resumed",
+    "zh-Hans": "暂停结束；自动恢复已启用",
+    "es": "Pausa finalizada; recuperación reanudada",
+    "fr": "Pause terminée ; rétablissement repris",
+    "ar": "انتهى الإيقاف المؤقت؛ استؤنفت الاستعادة"
+  },
+  "macOS: VPN подключён; проверяется прохождение трафика": {
+    "en": "macOS: connected; verifying traffic",
+    "zh-Hans": "macOS：已连接；正在验证流量",
+    "es": "macOS: conectado; verificando tráfico",
+    "fr": "macOS : connecté ; vérification du trafic",
+    "ar": "macOS: متصل؛ جارٍ التحقق من البيانات"
+  },
+  "macOS: VPN отключён": {
+    "en": "macOS: disconnected",
+    "zh-Hans": "macOS：未连接",
+    "es": "macOS: desconectado",
+    "fr": "macOS : déconnecté",
+    "ar": "macOS: غير متصل"
+  },
+  "Выбрана подписка: %@": {
+    "en": "Subscription selected: {0}",
+    "zh-Hans": "已选择订阅：{0}",
+    "es": "Suscripción elegida: {0}",
+    "fr": "Abonnement choisi : {0}",
+    "ar": "تم اختيار الاشتراك: {0}"
+  },
+  "Выбран сервер: %@": {
+    "en": "Server selected: {0}",
+    "zh-Hans": "已选择服务器：{0}",
+    "es": "Servidor elegido: {0}",
+    "fr": "Serveur choisi : {0}",
+    "ar": "تم اختيار الخادم: {0}"
+  },
+  "Запущен ручной подбор сервера": {
+    "en": "Manual server selection started",
+    "zh-Hans": "已开始手动选择服务器",
+    "es": "Selección manual iniciada",
+    "fr": "Sélection manuelle démarrée",
+    "ar": "بدأ اختيار الخادم يدويًا"
+  },
+  "Запущено автовосстановление": {
+    "en": "Automatic recovery started",
+    "zh-Hans": "自动恢复已开始",
+    "es": "Recuperación automática iniciada",
+    "fr": "Rétablissement automatique démarré",
+    "ar": "بدأت الاستعادة التلقائية"
+  },
+  "Настройки изменены; подбор остановлен": {
+    "en": "Settings changed; selection stopped",
+    "zh-Hans": "设置已更改；选择已停止",
+    "es": "Ajustes cambiados; selección detenida",
+    "fr": "Réglages modifiés ; sélection arrêtée",
+    "ar": "تغيّرت الإعدادات؛ توقف الاختيار"
+  },
+  "Настройки выбора обновлены": {
+    "en": "Selection settings updated",
+    "zh-Hans": "选择设置已更新",
+    "es": "Ajustes de selección actualizados",
+    "fr": "Réglages de sélection mis à jour",
+    "ar": "تم تحديث إعدادات الاختيار"
+  },
+  "VPN отключён вручную": {
+    "en": "Connection disconnected manually",
+    "zh-Hans": "连接已手动断开",
+    "es": "Conexión desconectada manualmente",
+    "fr": "Connexion coupée manuellement",
+    "ar": "تم قطع الاتصال يدويًا"
+  },
+  "Пауза VPN на %@ минут": {
+    "en": "Connection paused for {0} minutes",
+    "zh-Hans": "连接暂停 {0} 分钟",
+    "es": "Conexión en pausa durante {0} minutos",
+    "fr": "Connexion suspendue pour {0} minutes",
+    "ar": "تم إيقاف الاتصال مؤقتًا لمدة {0} دقيقة"
+  },
+  "Пауза VPN до ручного включения": {
+    "en": "Connection paused until manually resumed",
+    "zh-Hans": "连接暂停，直到手动恢复",
+    "es": "Conexión en pausa hasta reanudar manualmente",
+    "fr": "Connexion suspendue jusqu’à la reprise manuelle",
+    "ar": "الاتصال متوقف مؤقتًا حتى الاستئناف اليدوي"
+  },
+  "VPN возобновлён пользователем": {
+    "en": "Connection resumed by user",
+    "zh-Hans": "用户已恢复连接",
+    "es": "Conexión reanudada por el usuario",
+    "fr": "Connexion reprise par l’utilisateur",
+    "ar": "استأنف المستخدم الاتصال"
+  },
+  "Не удалось отправить команду отключения Happ": {
+    "en": "Could not send disconnect command to Happ",
+    "zh-Hans": "无法向 Happ 发送断开命令",
+    "es": "No se pudo enviar la orden de desconexión a Happ",
+    "fr": "Impossible d’envoyer la commande de déconnexion à Happ",
+    "ar": "تعذر إرسال أمر قطع الاتصال إلى Happ"
+  },
+  "Команда ручного отключения Happ не выполнена": {
+    "en": "Manual disconnect command failed",
+    "zh-Hans": "手动断开命令失败",
+    "es": "Falló la orden de desconexión manual",
+    "fr": "Échec de la déconnexion manuelle",
+    "ar": "فشل أمر قطع الاتصال اليدوي"
+  },
+  "Уведомления macOS не разрешены": {
+    "en": "macOS notifications not allowed",
+    "zh-Hans": "未允许 macOS 通知",
+    "es": "Notificaciones de macOS no permitidas",
+    "fr": "Notifications macOS non autorisées",
+    "ar": "إشعارات macOS غير مسموحة"
+  },
+  "Откройте Happ для автоматического выбора": {
+    "en": "Open Happ for automatic selection",
+    "zh-Hans": "打开 Happ 以自动选择",
+    "es": "Abra Happ para la selección automática",
+    "fr": "Ouvrez Happ pour la sélection automatique",
+    "ar": "افتح Happ للاختيار التلقائي"
+  },
+  "Подписка больше недоступна в Happ": {
+    "en": "Subscription no longer available in Happ",
+    "zh-Hans": "Happ 中的订阅不再可用",
+    "es": "Suscripción ya no disponible en Happ",
+    "fr": "Abonnement indisponible dans Happ",
+    "ar": "لم يعد الاشتراك متاحًا في Happ"
+  },
+  "Подписка изменена в Happ; автовыбор остановлен": {
+    "en": "Subscription changed in Happ; selection stopped",
+    "zh-Hans": "Happ 中的订阅已更改；选择已停止",
+    "es": "Suscripción cambiada en Happ; selección detenida",
+    "fr": "Abonnement modifié dans Happ ; sélection arrêtée",
+    "ar": "تغيّر الاشتراك في Happ؛ توقف الاختيار"
+  },
+  "Выберите сервер нужной подписки в Happ": {
+    "en": "Select a server from the desired subscription in Happ",
+    "zh-Hans": "在 Happ 中选择所需订阅的服务器",
+    "es": "Seleccione en Happ un servidor de la suscripción deseada",
+    "fr": "Choisissez dans Happ un serveur de l’abonnement souhaité",
+    "ar": "اختر خادمًا من الاشتراك المطلوب في Happ"
+  },
+  "Откройте главное окно Happ для определения подписки": {
+    "en": "Open Happ's main window to detect the subscription",
+    "zh-Hans": "打开 Happ 主窗口以识别订阅",
+    "es": "Abra la ventana principal de Happ para detectar la suscripción",
+    "fr": "Ouvrez la fenêtre principale de Happ pour détecter l’abonnement",
+    "ar": "افتح نافذة Happ الرئيسية لتحديد الاشتراك"
+  },
+  "Команды Happ недоступны": {
+    "en": "Happ commands unavailable",
+    "zh-Hans": "Happ 命令不可用",
+    "es": "Comandos de Happ no disponibles",
+    "fr": "Commandes Happ indisponibles",
+    "ar": "أوامر Happ غير متاحة"
+  },
+  "Happ не выполнил: %@": {
+    "en": "Happ could not perform: {0}",
+    "zh-Hans": "Happ 未能执行：{0}",
+    "es": "Happ no pudo ejecutar: {0}",
+    "fr": "Happ n’a pas exécuté : {0}",
+    "ar": "لم ينفذ Happ: {0}"
+  },
+  "В Happ нет команды: %@": {
+    "en": "Happ command not found: {0}",
+    "zh-Hans": "未找到 Happ 命令：{0}",
+    "es": "Comando de Happ no encontrado: {0}",
+    "fr": "Commande Happ introuvable : {0}",
+    "ar": "أمر Happ غير موجود: {0}"
+  },
+  "Сервер исключён настройками выбора": {
+    "en": "Server excluded by selection rules",
+    "zh-Hans": "服务器已被选择规则排除",
+    "es": "Servidor excluido por las reglas",
+    "fr": "Serveur exclu par les règles",
+    "ar": "الخادم مستبعد حسب قواعد الاختيار"
+  },
+  "Сервер изменился, требуется новый замер": {
+    "en": "Server changed; a new measurement is required",
+    "zh-Hans": "服务器已更改；需要重新测量",
+    "es": "Servidor cambiado; se necesita otra medición",
+    "fr": "Serveur modifié ; une nouvelle mesure est requise",
+    "ar": "تغيّر الخادم؛ يلزم قياس جديد"
+  },
+  "Не найдена кнопка подключения Happ": {
+    "en": "Happ connect button not found",
+    "zh-Hans": "未找到 Happ 连接按钮",
+    "es": "No se encontró el botón de conexión de Happ",
+    "fr": "Bouton de connexion Happ introuvable",
+    "ar": "لم يُعثر على زر الاتصال في Happ"
+  },
+  "Диагностика": {
+    "en": "Diagnostics",
+    "zh-Hans": "诊断",
+    "es": "Diagnóstico",
+    "fr": "Diagnostic",
+    "ar": "التشخيص"
+  },
+  "Диагностика…": {
+    "en": "Diagnostics…",
+    "zh-Hans": "诊断…",
+    "es": "Diagnóstico…",
+    "fr": "Diagnostic…",
+    "ar": "التشخيص…"
+  },
+  "Все события": {
+    "en": "All events",
+    "zh-Hans": "所有事件",
+    "es": "Todos los eventos",
+    "fr": "Tous les événements",
+    "ar": "كل الأحداث"
+  },
+  "Только ошибки": {
+    "en": "Errors only",
+    "zh-Hans": "仅错误",
+    "es": "Solo errores",
+    "fr": "Erreurs uniquement",
+    "ar": "الأخطاء فقط"
+  },
+  "Обновить": {
+    "en": "Refresh",
+    "zh-Hans": "刷新",
+    "es": "Actualizar",
+    "fr": "Actualiser",
+    "ar": "تحديث"
+  },
+  "Скопировать ошибку": {
+    "en": "Copy last error",
+    "zh-Hans": "复制最近错误",
+    "es": "Copiar último error",
+    "fr": "Copier la dernière erreur",
+    "ar": "نسخ آخر خطأ"
+  },
+  "Экспорт…": {
+    "en": "Export…",
+    "zh-Hans": "导出…",
+    "es": "Exportar…",
+    "fr": "Exporter…",
+    "ar": "تصدير…"
+  },
+  "Очистить…": {
+    "en": "Clear…",
+    "zh-Hans": "清除…",
+    "es": "Borrar…",
+    "fr": "Effacer…",
+    "ar": "مسح…"
+  },
+  "Удалить локальные логи?": {
+    "en": "Delete local logs?",
+    "zh-Hans": "删除本地日志？",
+    "es": "¿Borrar los registros locales?",
+    "fr": "Supprimer les journaux locaux ?",
+    "ar": "هل تريد حذف السجلات المحلية؟"
+  },
+  "Удалить": {
+    "en": "Delete",
+    "zh-Hans": "删除",
+    "es": "Eliminar",
+    "fr": "Supprimer",
+    "ar": "حذف"
+  },
+  "Отмена": {
+    "en": "Cancel",
+    "zh-Hans": "取消",
+    "es": "Cancelar",
+    "fr": "Annuler",
+    "ar": "إلغاء"
+  },
+  "Журнал пуст": {
+    "en": "Log is empty",
+    "zh-Hans": "日志为空",
+    "es": "El registro está vacío",
+    "fr": "Le journal est vide",
+    "ar": "السجل فارغ"
+  },
+  "Логи хранятся локально до 24 часов, максимум 20 МБ. После сна или закрытия очистка выполняется при следующем запуске. Экспорт отправляется только вручную.": {
+    "en": "Logs stay on this Mac for up to 24 hours, capped at 20 MB. After sleep or shutdown, cleanup runs on wake or launch. Export is manual only.",
+    "zh-Hans": "日志仅保存在本机，保留 24 小时，最多 20 MB。休眠或关闭后将在唤醒或启动时清理。仅支持手动导出。",
+    "es": "Los registros son locales, hasta 24 horas y 20 MB. Tras dormir o cerrar, se limpian al despertar o iniciar. La exportación es manual.",
+    "fr": "Journaux locaux conservés 24 heures maximum, limités à 20 Mo. Nettoyage au réveil ou au lancement. Export uniquement manuel.",
+    "ar": "تُحفظ السجلات محليًا حتى 24 ساعة وبحد أقصى 20 م.ب. يُنفّذ التنظيف بعد الاستيقاظ أو التشغيل. التصدير يدوي فقط."
+  },
+  "Отчёт показан ниже. Проверьте его перед сохранением.": {
+    "en": "The report is shown below. Review it before saving.",
+    "zh-Hans": "报告显示在下方。保存前请检查。",
+    "es": "El informe aparece abajo. Revíselo antes de guardarlo.",
+    "fr": "Le rapport est affiché ci-dessous. Vérifiez-le avant de l’enregistrer.",
+    "ar": "يظهر التقرير أدناه. راجعه قبل الحفظ."
+  },
+  "Сохранить отчёт": {
+    "en": "Save report",
+    "zh-Hans": "保存报告",
+    "es": "Guardar informe",
+    "fr": "Enregistrer le rapport",
+    "ar": "حفظ التقرير"
+  },
+  "Не удалось сохранить отчёт": {
+    "en": "Could not save report",
+    "zh-Hans": "无法保存报告",
+    "es": "No se pudo guardar el informe",
+    "fr": "Impossible d’enregistrer le rapport",
+    "ar": "تعذر حفظ التقرير"
+  },
+  "Запись журнала недоступна. Проверьте свободное место и права доступа.": {
+    "en": "Logging unavailable. Check free space and permissions.",
+    "zh-Hans": "无法写入日志。请检查可用空间和权限。",
+    "es": "No se puede escribir el registro. Revise espacio y permisos.",
+    "fr": "Journalisation indisponible. Vérifiez l’espace et les autorisations.",
+    "ar": "تسجيل الأحداث غير متاح. تحقق من المساحة والأذونات."
+  },
+  "Режим: пауза до ручного включения": {
+    "en": "Mode: paused until resumed manually",
+    "zh-Hans": "模式：暂停，直到手动恢复",
+    "es": "Modo: pausa hasta reanudar manualmente",
+    "fr": "Mode : pause jusqu’à la reprise manuelle",
+    "ar": "الوضع: متوقف حتى الاستئناف اليدوي"
+  },
+  "Режим: пауза до %@": {
+    "en": "Mode: paused until {0}",
+    "zh-Hans": "模式：暂停至 {0}",
+    "es": "Modo: pausa hasta {0}",
+    "fr": "Mode : pause jusqu’à {0}",
+    "ar": "الوضع: متوقف حتى {0}"
+  },
+  "Режим: автовосстановление выключено": {
+    "en": "Mode: automatic recovery off",
+    "zh-Hans": "模式：自动恢复已关闭",
+    "es": "Modo: recuperación automática desactivada",
+    "fr": "Mode : rétablissement automatique désactivé",
+    "ar": "الوضع: الاستعادة التلقائية معطّلة"
+  },
+  "Режим: автовосстановление включено": {
+    "en": "Mode: automatic recovery on",
+    "zh-Hans": "模式：自动恢复已启用",
+    "es": "Modo: recuperación automática activada",
+    "fr": "Mode : rétablissement automatique activé",
+    "ar": "الوضع: الاستعادة التلقائية مفعّلة"
+  },
+  "Сначала возобновите мониторинг": {
+    "en": "Resume monitoring first",
+    "zh-Hans": "请先恢复监控",
+    "es": "Primero reanude la supervisión",
+    "fr": "Reprenez d’abord la surveillance",
+    "ar": "استأنف المراقبة أولًا"
+  },
+  "Проверка уже выполняется": {
+    "en": "A check is already running",
+    "zh-Hans": "检查正在进行",
+    "es": "Ya hay una comprobación en curso",
+    "fr": "Une vérification est déjà en cours",
+    "ar": "يوجد فحص قيد التنفيذ"
+  },
+  "Сначала подключитесь в Happ": {
+    "en": "Connect in Happ first",
+    "zh-Hans": "请先在 Happ 中连接",
+    "es": "Primero conecte en Happ",
+    "fr": "Connectez-vous d’abord dans Happ",
+    "ar": "اتصل في Happ أولًا"
+  },
+  "Идёт восстановление: %@ с": {
+    "en": "Recovery in progress: {0} s",
+    "zh-Hans": "正在恢复：{0} 秒",
+    "es": "Recuperación en curso: {0} s",
+    "fr": "Rétablissement en cours : {0} s",
+    "ar": "الاستعادة قيد التنفيذ: {0} ثانية"
+  },
+  "Отменить восстановление": {
+    "en": "Cancel recovery",
+    "zh-Hans": "取消恢复",
+    "es": "Cancelar recuperación",
+    "fr": "Annuler le rétablissement",
+    "ar": "إلغاء الاستعادة"
+  },
+  "Восстановление отменено пользователем": {
+    "en": "Recovery cancelled by user",
+    "zh-Hans": "用户已取消恢复",
+    "es": "Recuperación cancelada por el usuario",
+    "fr": "Rétablissement annulé par l’utilisateur",
+    "ar": "ألغى المستخدم الاستعادة"
+  },
+  "Проверка трафика через выбранный сервер…": {
+    "en": "Checking traffic through selected server…",
+    "zh-Hans": "正在检查所选服务器的流量…",
+    "es": "Comprobando tráfico por el servidor elegido…",
+    "fr": "Vérification du trafic via le serveur choisi…",
+    "ar": "جارٍ فحص البيانات عبر الخادم المختار…"
+  },
+  "Доступ к управлению: %@": {
+    "en": "Control permission: {0}",
+    "zh-Hans": "控制权限：{0}",
+    "es": "Permiso de control: {0}",
+    "fr": "Autorisation de contrôle : {0}",
+    "ar": "إذن التحكم: {0}"
+  },
+  "разрешён": {
+    "en": "allowed",
+    "zh-Hans": "已允许",
+    "es": "permitido",
+    "fr": "autorisé",
+    "ar": "مسموح"
+  },
+  "не выдан": {
+    "en": "not granted",
+    "zh-Hans": "未授予",
+    "es": "no concedido",
+    "fr": "non accordé",
+    "ar": "غير ممنوح"
+  },
+  "Служба Happ: %@": {
+    "en": "Happ service: {0}",
+    "zh-Hans": "Happ 服务：{0}",
+    "es": "Servicio Happ: {0}",
+    "fr": "Service Happ : {0}",
+    "ar": "خدمة Happ: {0}"
+  },
+  "Начните с подключения в Happ. Затем разрешите управление и выполните проверку из меню HM.": {
+    "en": "Connect in Happ first. Then allow control and run a check from the HM menu.",
+    "zh-Hans": "请先在 Happ 中连接，然后授予控制权限并从 HM 菜单运行检查。",
+    "es": "Conecte en Happ, permita el control y ejecute una comprobación desde el menú HM.",
+    "fr": "Connectez-vous dans Happ, autorisez le contrôle et lancez une vérification depuis le menu HM.",
+    "ar": "اتصل في Happ أولًا، ثم اسمح بالتحكم وشغّل الفحص من قائمة HM."
+  },
+  "Всё готово. Проверка трафика…": {
+    "en": "Ready. Checking traffic…",
+    "zh-Hans": "已就绪。正在检查流量…",
+    "es": "Listo. Comprobando tráfico…",
+    "fr": "Prêt. Vérification du trafic…",
+    "ar": "جاهز. جارٍ فحص البيانات…"
+  },
+  "Последние данные": {
+    "en": "Last known data",
+    "zh-Hans": "上次数据",
+    "es": "Últimos datos",
+    "fr": "Dernières données",
+    "ar": "آخر بيانات معروفة"
+  },
+  "%@: %@. Исключён на 10 минут": {
+    "en": "{0}: {1}. Skipped for 10 minutes",
+    "zh-Hans": "{0}：{1}。跳过 10 分钟",
+    "es": "{0}: {1}. Omitido durante 10 minutos",
+    "fr": "{0} : {1}. Ignoré pendant 10 minutes",
+    "ar": "{0}: {1}. تم التجاهل لمدة 10 دقائق"
+  },
+  "подключено": {
+    "en": "connected",
+    "zh-Hans": "已连接",
+    "es": "conectado",
+    "fr": "connecté",
+    "ar": "متصل"
+  },
+  "отключено": {
+    "en": "disconnected",
+    "zh-Hans": "未连接",
+    "es": "desconectado",
+    "fr": "déconnecté",
+    "ar": "غير متصل"
+  },
+  "подключение": {
+    "en": "connecting",
+    "zh-Hans": "正在连接",
+    "es": "conectando",
+    "fr": "connexion en cours",
+    "ar": "جارٍ الاتصال"
+  },
+  "отключение": {
+    "en": "disconnecting",
+    "zh-Hans": "正在断开",
+    "es": "desconectando",
+    "fr": "déconnexion en cours",
+    "ar": "جارٍ قطع الاتصال"
+  },
+  "неизвестно": {
+    "en": "unknown",
+    "zh-Hans": "未知",
+    "es": "desconocido",
+    "fr": "inconnu",
+    "ar": "غير معروف"
+  },
+  "Открыть диагностику для исправления": {
+    "en": "Open diagnostics to resolve this",
+    "zh-Hans": "打开诊断以解决问题",
+    "es": "Abrir diagnóstico para resolverlo",
+    "fr": "Ouvrir le diagnostic pour résoudre le problème",
+    "ar": "افتح التشخيص لحل المشكلة"
+  }
+}
