@@ -98,5 +98,6 @@ func runSelfTests() {
     check(reloaded.history.count == 1, "history persists")
     for index in 0..<150 { store.log("Test \(index)") }
     check(store.history.count == 100, "history bounded")
+    count += runFeatureTests()
     print("\(count) checks passed")
 }

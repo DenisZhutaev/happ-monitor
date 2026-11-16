@@ -38,10 +38,17 @@ final class MonitorStore {
         self.defaults = defaults
         preferences = defaults.data(forKey: "preferences.v2").flatMap { try? JSONDecoder().decode(MonitorPreferences.self, from: $0) } ?? MonitorPreferences()
         history = defaults.data(forKey: "history.v2").flatMap { try? JSONDecoder().decode([HistoryEntry].self, from: $0) } ?? []
+        pruneHistory()
     }
     private let defaults: UserDefaults
     func save() { if let data = try? JSONEncoder().encode(preferences) { defaults.set(data, forKey: "preferences.v2") } }
+    func pruneHistory(now: Date = Date()) {
+        let oldCount = history.count
+        history.removeAll { now.timeIntervalSince($0.date) >= DiagnosticLog.retention }
+        if oldCount != history.count, let data = try? JSONEncoder().encode(history) { defaults.set(data, forKey: "history.v2") }
+    }
     func log(_ message: String) {
+        pruneHistory()
         if let last = history.last, last.message == message, Date().timeIntervalSince(last.date) < 120 { return }
         history.append(HistoryEntry(date: Date(), message: message))
         history = Array(history.suffix(100))
@@ -94,16 +101,20 @@ func effectiveCountry(_ name: String, subscription: String, preferences: Monitor
     return preferences.rules[MonitorPreferences.key(subscription, name)]?.country ?? countryCode(for: name)
 }
 func serverAllowed(_ name: String, subscription: String, preferences: MonitorPreferences, now: Date = Date(), checkCooldown: Bool = true) -> Bool {
+    selectionExclusion(name, subscription: subscription, preferences: preferences, now: now, checkCooldown: checkCooldown) == nil
+}
+func selectionExclusion(_ name: String, subscription: String, preferences: MonitorPreferences, now: Date = Date(), checkCooldown: Bool = true) -> String? {
     let key = MonitorPreferences.key(subscription, name)
     let rule = preferences.rules[key] ?? ServerRule()
     let country = effectiveCountry(name, subscription: subscription, preferences: preferences)
-    if rule.blocked { return false }
-    if let country = country, preferences.excludedCountries.contains(country) { return false }
-    if country == nil && preferences.blockUnknown { return false }
-    if checkCooldown, let until = preferences.records[key]?.blockedUntil, until > now { return false }
-    if let pinned = preferences.pinned[subscription], !pinned.isEmpty, pinned != name { return false }
-    return true
+    if rule.blocked { return "server_excluded" }
+    if let country, preferences.excludedCountries.contains(country) { return "country_excluded" }
+    if country == nil && preferences.blockUnknown { return "unknown_country" }
+    if checkCooldown, let until = preferences.records[key]?.blockedUntil, until > now { return "cooldown" }
+    if let pinned = preferences.pinned[subscription], !pinned.isEmpty, pinned != name { return "other_server_pinned" }
+    return nil
 }
+
 func rankedServers(samples: [[ServerCandidate]], subscription: String, preferences: MonitorPreferences, now: Date = Date()) -> [ServerCandidate] {
     var values: [String: [Int]] = [:]
     for sample in samples {
@@ -185,12 +196,17 @@ func probeLatency(code: Int32, output: String, expectedAddress: String) -> Int? 
 }
 final class TunnelProbe {
     static let endpoints = ["https://www.gstatic.com/generate_204", "https://cp.cloudflare.com/generate_204"]
-    static func check(_ vpn: VPNInfo) -> ProbeResult {
+    static func check(_ vpn: VPNInfo, operation: String? = nil) -> ProbeResult {
         guard vpn.connected, let interface = vpn.interface, interface.range(of: #"^utun[0-9]+$"#, options: .regularExpression) != nil,
               let address = vpn.address else { return ProbeResult(healthy: false, verified: false, milliseconds: nil, message: "Интерфейс туннеля не определён") }
-        for url in endpoints {
+        for (index, url) in endpoints.enumerated() {
+            let started = Date()
             let result = runCommand("/usr/bin/curl", ["-q", "--silent", "--ipv4", "--noproxy", "*", "--interface", "if!" + interface,
                 "--connect-timeout", "4", "--max-time", "7", "--max-filesize", "4096", "--output", "/dev/null", "--write-out", "%{http_code} %{time_total} %{local_ip}", url], timeout: 9)
+            let http = result.output.split(separator: " ").first.map(String.init) ?? ""
+            let safeHTTP = http.range(of: #"^[0-9]{3}$"#, options: .regularExpression) != nil ? http : "unknown"
+            let passed = probeLatency(code: result.code, output: result.output, expectedAddress: address) != nil
+            DiagnosticLog.shared.record("probe.endpoint.finished", level: passed ? "info" : "error", operation: operation, fields: ["endpoint": String(index + 1), "error_code": String(result.code), "http_status": safeHTTP, "duration_ms": String(Int(Date().timeIntervalSince(started) * 1000)), "healthy": String(passed)])
             if let milliseconds = probeLatency(code: result.code, output: result.output, expectedAddress: address) {
                 return ProbeResult(healthy: true, verified: true, milliseconds: milliseconds, message: "HTTPS через туннель работает")
             }

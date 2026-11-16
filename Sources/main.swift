@@ -3,6 +3,7 @@ import ApplicationServices
 import ServiceManagement
 import UserNotifications
 
+if CommandLine.arguments.contains("--ui-self-test") { runUISelfTests(); exit(0) }
 if CommandLine.arguments.contains("--self-test") { runSelfTests(); exit(0) }
 if CommandLine.arguments.contains("--status") {
     let status = happStatus(); print("Happ: \(status.status); tunnel: \(status.interface ?? "unavailable")"); exit(0)
@@ -29,8 +30,8 @@ final class MonitorNotifications {
                 DispatchQueue.main.async {
                     store.preferences.notifications = false; store.save()
                     if explain {
-                        let alert = NSAlert(); alert.messageText = "Уведомления отключены в macOS"
-                        alert.informativeText = "Разрешите их в разделе «Системные настройки → Уведомления → Happ Monitor», затем включите эту настройку снова."
+                        let alert = NSAlert(); alert.messageText = L("Уведомления отключены в macOS")
+                        alert.informativeText = L("Разрешите их в разделе «Системные настройки → Уведомления → Happ Monitor», затем включите эту настройку снова.")
                         alert.runModal()
                     }
                     completion?()
@@ -55,8 +56,8 @@ final class MonitorNotifications {
             lastFailure = Date()
         }
         let content = UNMutableNotificationContent()
-        content.title = success ? "VPN восстановлен" : "Не удалось восстановить VPN"
-        content.body = message
+        content.title = L(success ? "VPN восстановлен" : "Не удалось восстановить VPN")
+        content.body = L(message)
         UNUserNotificationCenter.current().add(UNNotificationRequest(identifier: success ? "vpn-restored" : "vpn-failure", content: content, trigger: nil))
     }
 }
@@ -93,6 +94,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private var phase = Phase.idle
     private var recovering: Bool { phase != .idle }
     private var recoveryStarted = Date.distantPast
+    private var candidateIDs: [String: String] = [:]
+    private var candidateAttempt = 0
+    private weak var liveProgressField: NSTextField?
+    private var operationID: String?
+    private var lastMaintenance = Date.distantPast
+    private var lastSnapshotFailure: String?
     private var attemptStarted = Date()
     private var measurementStarted = Date()
     private var sawMeasurement = false
@@ -113,6 +120,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         item.menu = menu; menu.delegate = self
+        settings.connectionStatus = { [weak self] in self?.vpn.status ?? "Unknown" }
+        settings.onLanguageChange = { [weak self] in self?.renderIcon(); self?.rebuildMenu() }
+        settings.onRequestControl = { [weak self] in self?.requestAccessibility() }
+        settings.onOpenHapp = { [weak self] in self?.openHapp() }
+        DiagnosticLog.shared.maintenance()
+        DiagnosticLog.shared.record("app.started", fields: ["version": Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "unknown", "os": ProcessInfo.processInfo.operatingSystemVersionString, "paused": String(store.preferences.paused()), "automatic": String(store.preferences.automatic)])
         settings.onChange = { [weak self] in self?.preferencesChanged() }
         settings.onRequestNotifications = { [weak self] in
             guard let self else { return }
@@ -125,16 +138,23 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         store.log("Happ Monitor запущен")
         tick()
         if CommandLine.arguments.contains("--show-settings") { openSettings() }
+        else if !UserDefaults.standard.bool(forKey: "onboarding.seen.v1") {
+            UserDefaults.standard.set(true, forKey: "onboarding.seen.v1")
+            openDiagnostics()
+        }
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in self?.tick() }
         NSWorkspace.shared.notificationCenter.addObserver(self, selector: #selector(woke), name: NSWorkspace.didWakeNotification, object: nil)
     }
     @objc private func woke() {
+        DiagnosticLog.shared.maintenance()
+        DiagnosticLog.shared.record("system.wake")
         generation += 1; health = nil; healthAt = nil; probeFailures = 0
         lastProbe = .distantPast; lastStatusPoll = .distantPast
         if recovering { cancelRecovery("Проверка после пробуждения") }
         store.log("Mac вышел из сна; состояние проверяется заново")
     }
     private func tick() {
+        if Date().timeIntervalSince(lastMaintenance) >= 60 { lastMaintenance = Date(); store.pruneHistory(); DiagnosticLog.shared.maintenance() }
         if let until = store.preferences.pauseUntil, Date() >= until {
             store.preferences.pauseUntil = nil; store.save()
             store.log("Пауза завершена; автовосстановление возобновлено")
@@ -157,6 +177,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 beginRecovery(manual: false)
             }
         }
+        if menuTracking, recovering { liveProgressField?.stringValue = L(message) + " · " + L("Идёт восстановление: \(Int(Date().timeIntervalSince(recoveryStarted))) с") }
         renderIcon(); rebuildMenu()
         if CommandLine.arguments.contains("--verify-state") { writeState() }
     }
@@ -164,6 +185,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         fetchingStatus = false
         let changed = value.status != vpn.status || value.interface != vpn.interface
         if changed {
+            DiagnosticLog.shared.record("connection.changed", fields: ["status": value.status])
             generation += 1; health = nil; healthAt = nil; lastProbe = .distantPast; probeFailures = 0
             if value.connected {
                 connectedSince = Date(); downSince = nil
@@ -191,18 +213,27 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 if let selectedName { store.log("Выбран сервер: \(selectedName)") }
             }
             subscription = name; selected = selectedName; serverSnapshot = servers; snapshotFresh = true
-        } catch { snapshotFresh = false }
+            if lastSnapshotFailure != nil { DiagnosticLog.shared.record("happ.access.restored", fields: ["candidate_count": String(servers.count)]); lastSnapshotFailure = nil }
+        } catch {
+            snapshotFresh = false
+            let reason = diagnosticReason(error.localizedDescription)
+            if lastSnapshotFailure != reason { DiagnosticLog.shared.record("happ.access.failed", level: "error", fields: ["reason": reason, "error_code": String((error as NSError).code)]); lastSnapshotFailure = reason }
+        }
     }
     private func startProbe(forCandidate: Bool) {
         guard vpn.connected && !probing else { return }
         probing = true; lastProbe = Date()
         let epoch = generation, snapshot = vpn
+        let probeID = forCandidate ? operationID : UUID().uuidString
+        DiagnosticLog.shared.record("probe.started", operation: probeID)
+        if forCandidate { message = "Проверка трафика через выбранный сервер…" }
         DispatchQueue.global(qos: .utility).async { [weak self] in
-            let result = TunnelProbe.check(snapshot)
+            let result = TunnelProbe.check(snapshot, operation: probeID)
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
                 self.probing = false
                 guard self.generation == epoch, self.vpn.connected, self.vpn.interface == snapshot.interface else {
+                    DiagnosticLog.shared.record("probe.discarded", operation: probeID, fields: ["reason": "state_changed"])
                     if forCandidate { self.candidateProbeStarted = false }
                     return
                 }
@@ -227,6 +258,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private func beginRecovery(manual: Bool) {
         guard !recovering && !store.preferences.paused() else { return }
         phase = .preparing; generation += 1; recoveryStarted = Date()
+        operationID = UUID().uuidString; candidateAttempt = 0; candidateIDs.removeAll()
+        DiagnosticLog.shared.record("recovery.started", operation: operationID, fields: ["manual": String(manual)])
         manualOptimization = manual
         wasHealthyBeforeRecovery = health?.healthy == true && healthAt.map { Date().timeIntervalSince($0) < 45 } == true
         originalServer = selected
@@ -242,6 +275,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         }
     }
     private func startMeasurement() throws {
+        DiagnosticLog.shared.record("recovery.measurement.started", operation: operationID, fields: ["sample": String(samples.count + 1)])
         phase = .measuring; measurementStarted = Date(); settledTicks = 0
         baseline = try control.candidates().map { "\($0.name):\($0.ping)" }; settled = []
         message = "Замер пинга \(samples.count + 1) из 3…"
@@ -271,6 +305,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                 // Settled results are also valid after a fast run that ended between ticks.
                 let completed = !testing && ((sawMeasurement && settledTicks >= 1) || (signature != baseline && settledTicks >= 3))
                 if completed {
+                    DiagnosticLog.shared.record("recovery.measurement.finished", operation: operationID, fields: ["sample": String(samples.count + 1), "candidate_count": String(results.count)])
                     samples.append(results)
                     if samples.count < 3 { try startMeasurement() }
                     else { try chooseMeasuredServer() }
@@ -299,6 +334,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private func chooseMeasuredServer() throws {
         guard let sub = recoverySubscription else { throw ControlError.message("Подписка не определена") }
         queue = rankedServers(samples: samples, subscription: sub, preferences: store.preferences)
+        for server in serverSnapshot {
+            let id = UUID().uuidString; candidateIDs[server.name] = id
+            let responses = samples.filter { $0.contains(where: { $0.name == server.name }) }.count
+            let reason = selectionExclusion(server.name, subscription: sub, preferences: store.preferences) ?? (responses < samples.count / 2 + 1 ? "insufficient_responses" : "eligible")
+            DiagnosticLog.shared.record("recovery.candidate.evaluated", operation: operationID, fields: ["candidate_id": id, "reason": reason])
+        }
+        DiagnosticLog.shared.record("recovery.ranked", operation: operationID, fields: ["candidate_count": String(queue.count), "reason": queue.isEmpty ? "no_allowed_candidates" : "ranked"])
         guard let best = queue.first else { throw ControlError.message("Нет разрешённых стабильных серверов. Проверьте исключения, закрепление и временные блокировки") }
         if manualOptimization && wasHealthyBeforeRecovery, let originalServer,
            let current = queue.first(where: { $0.name == originalServer }) {
@@ -317,6 +359,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             if !serverAllowed(server.name, subscription: sub, preferences: store.preferences) { continue }
             candidate = server; generation += 1; health = nil; healthAt = nil; probeFailures = 0
             phase = .connecting; attemptStarted = Date(); connectedTicks = 0; candidateProbeStarted = false; attemptedConnect = false
+            candidateAttempt += 1
+            DiagnosticLog.shared.record("recovery.candidate.selected", operation: operationID, fields: ["candidate_id": candidateIDs[server.name] ?? "unknown", "attempt": String(candidateAttempt), "latency_ms": String(server.ping)])
             message = "Подключение: \(server.name) · медиана \(server.ping) мс"
             store.log(message)
             try control.select(server); selected = server.name
@@ -325,6 +369,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         throw ControlError.message("Разрешённые серверы проверены, восстановить VPN не удалось")
     }
     private func failCandidate(_ reason: String) {
+        DiagnosticLog.shared.record("recovery.candidate.failed", level: "error", operation: operationID, fields: ["reason": diagnosticReason(reason), "duration_ms": String(Int(Date().timeIntervalSince(attemptStarted) * 1000))])
         generation += 1
         if let server = candidate, let sub = recoverySubscription {
             store.outcome(subscription: sub, server: server.name, success: false)
@@ -333,10 +378,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         do { try selectNextServer() } catch { finishRecovery(error.localizedDescription, success: false) }
     }
     private func cancelRecovery(_ reason: String) {
+        DiagnosticLog.shared.record("recovery.cancelled", operation: operationID, fields: ["reason": diagnosticReason(reason)])
+        operationID = nil
         generation += 1; control.endRecovery(); phase = .idle; candidate = nil
         nextRecovery = Date().addingTimeInterval(15); message = reason; store.log(reason)
     }
     private func finishRecovery(_ result: String, success: Bool) {
+        DiagnosticLog.shared.record("recovery.finished", level: success ? "info" : "error", operation: operationID, fields: ["healthy": String(success), "duration_ms": String(Int(Date().timeIntervalSince(recoveryStarted) * 1000)), "reason": diagnosticReason(result)])
+        operationID = nil
         if success, let server = candidate, let sub = recoverySubscription { store.outcome(subscription: sub, server: server.name, success: true) }
         control.endRecovery(); phase = .idle; message = result
         nextRecovery = Date().addingTimeInterval(success ? 60 : 120)
@@ -345,6 +394,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         if CommandLine.arguments.contains("--verify-recovery") { try? result.write(toFile: "/private/tmp/happ-monitor-result-v2.txt", atomically: true, encoding: .utf8) }
     }
     private func preferencesChanged() {
+        DiagnosticLog.shared.record("preferences.changed", fields: ["automatic": String(store.preferences.automatic)])
         if recovering { cancelRecovery("Настройки изменены; подбор остановлен") }
         nextRecovery = Date().addingTimeInterval(8)
         store.log("Настройки выбора обновлены"); rebuildMenu()
@@ -365,9 +415,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             accent.move(to: NSPoint(x: 12, y: 5)); accent.line(to: NSPoint(x: 12, y: 15)); accent.stroke(); return true
         }
         image.isTemplate = false
-        image.accessibilityDescription = summary()
-        item.button?.image = image; item.button?.title = ""; item.button?.contentTintColor = nil
-        item.button?.toolTip = summary()
+        image.accessibilityDescription = L(summary()) + " · " + L(modeDescription())
+        item.button?.image = image; item.button?.title = store.preferences.paused() ? "Ⅱ" : ""; item.button?.contentTintColor = nil
+        item.button?.toolTip = L(summary()) + " · " + L(modeDescription())
     }
     private func summary() -> String {
         if vpn.connected {
@@ -382,29 +432,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         return "Happ: статус неизвестен"
     }
     private var menuTracking = false
-    func menuWillOpen(_ menu: NSMenu) { readSnapshot(); rebuildMenu(); menuTracking = true }
-    func menuDidClose(_ menu: NSMenu) { menuTracking = false }
+    func menuWillOpen(_ menu: NSMenu) { guard menu === self.menu else { return }; readSnapshot(); rebuildMenu(); menuTracking = true }
+    func menuDidClose(_ menu: NSMenu) { if menu === self.menu { menuTracking = false } }
     private func label(_ text: String) {
         menu.addItem(informationRow(text))
     }
     private func informationRow(_ text: String) -> NSMenuItem {
-        let row = NSMenuItem(); let field = NSTextField(labelWithString: text)
+        let row = NSMenuItem(); let field = NSTextField(labelWithString: L(text))
         field.font = .menuFont(ofSize: 13); field.textColor = .labelColor
         let size = field.fittingSize
         let view = NSView(frame: NSRect(x: 0, y: 0, width: min(700, max(330, size.width + 40)), height: 25))
         field.frame = NSRect(x: 20, y: 3, width: min(660, size.width), height: 19)
+        field.baseWritingDirection = UIStrings.rtl ? .rightToLeft : .leftToRight; field.alignment = UIStrings.rtl ? .right : .left
         field.lineBreakMode = .byTruncatingTail; view.addSubview(field); row.view = view
         return row
     }
     @discardableResult private func action(_ title: String, _ selector: Selector, tag: Int = 0, parent: NSMenu? = nil) -> NSMenuItem {
-        let row = NSMenuItem(title: title, action: selector, keyEquivalent: ""); row.target = self; row.tag = tag; (parent ?? menu).addItem(row); return row
+        let row = NSMenuItem(title: L(title), action: selector, keyEquivalent: ""); row.target = self; row.tag = tag; (parent ?? menu).addItem(row); return row
     }
     private func rebuildMenu() {
         guard !menuTracking else { return }
-        menu.removeAllItems()
+        menu.removeAllItems(); liveProgressField = nil
         label(summary())
-        label("Подписка: \(subscription ?? "не определена")\(snapshotFresh || subscription == nil ? "" : " · последние данные")")
-        label("Сервер: \(selected ?? "не определён")")
+        label(modeDescription())
+        if store.preferences.paused() { action("Возобновить VPN", #selector(resumeVPN)); menu.addItem(.separator()) }
+        label("Подписка: \(subscription ?? L("не определена"))\(snapshotFresh || subscription == nil ? "" : " · " + L("Последние данные"))")
+        label("Сервер: \(selected ?? L("не определён"))")
         if let latency = health?.milliseconds { label("HTTPS через туннель: \(latency) мс") }
         if let at = healthAt { label("Последняя проверка трафика: \(time(at))") }
         if store.preferences.paused() {
@@ -412,26 +465,42 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             if let pauseDisconnectError { label(pauseDisconnectError) }
         } else { label(message) }
         if let connectedSince {
-            let seconds = Int(Date().timeIntervalSince(connectedSince)); label(String(format: "Соединение наблюдается: %02d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60))
+            let seconds = Int(Date().timeIntervalSince(connectedSince)); label("Соединение наблюдается: " + String(format: "%02d:%02d:%02d", seconds / 3600, seconds / 60 % 60, seconds % 60))
         }
         menu.addItem(.separator())
-        let automatic = action("Автовосстановление · \(subscription ?? "подписка не определена")", #selector(toggleAutomatic))
+        let automatic = action("Автовосстановление · \(subscription ?? L("подписка не определена"))", #selector(toggleAutomatic))
         automatic.state = store.preferences.automatic ? .on : .off
         let restore = action("Проверить и подобрать сервер", #selector(recoverNow)); restore.isEnabled = !recovering && !store.preferences.paused()
+        if !restore.isEnabled { label(store.preferences.paused() ? "Сначала возобновите мониторинг" : "Проверка уже выполняется") }
+        if recovering {
+            let progress = informationRow("Идёт восстановление: \(Int(Date().timeIntervalSince(recoveryStarted))) с")
+            liveProgressField = progress.view?.subviews.first as? NSTextField
+            liveProgressField?.frame.size.width = 650
+            progress.view?.frame.size.width = 690
+            menu.addItem(progress)
+            action("Отменить восстановление", #selector(cancelRecoveryByUser))
+        }
         action("Проверить трафик сейчас", #selector(checkNow)).isEnabled = vpn.connected && !probing
-        let pause = NSMenuItem(title: "Отключить VPN на время", action: nil, keyEquivalent: "")
+        if !vpn.connected { label("Сначала подключитесь в Happ") }
+        else if probing { label("Проверка уже выполняется") }
+        let pause = NSMenuItem(title: L("Отключить VPN на время"), action: nil, keyEquivalent: "")
         let sub = NSMenu(); pause.submenu = sub
         action("На 15 минут", #selector(pauseVPN(_:)), tag: 15, parent: sub)
         action("На час", #selector(pauseVPN(_:)), tag: 60, parent: sub)
         action("До ручного включения", #selector(pauseVPN(_:)), tag: -1, parent: sub)
         menu.addItem(pause)
-        if store.preferences.paused() { action("Возобновить VPN", #selector(resumeVPN)) }
+
         menu.addItem(.separator())
+        if !AXIsProcessTrusted() || !snapshotFresh {
+            label("Открыть диагностику для исправления")
+            action("Диагностика…", #selector(openDiagnostics))
+        }
         action("Настройки стран и серверов…", #selector(openSettings))
         action("История соединений…", #selector(openHistory))
-        let recent = NSMenuItem(title: "Последние события", action: nil, keyEquivalent: "")
+        action("Диагностика…", #selector(openDiagnostics))
+        let recent = NSMenuItem(title: L("Последние события"), action: nil, keyEquivalent: "")
         let recentMenu = NSMenu()
-        for event in store.history.suffix(6).reversed() { recentMenu.addItem(informationRow("\(time(event.date)) · \(event.message.prefix(110))")) }
+        for event in store.history.suffix(6).reversed() { recentMenu.addItem(informationRow("\(time(event.date)) · \(L(event.message).prefix(160))")) }
         if store.history.isEmpty { recentMenu.addItem(informationRow("Событий пока нет")) }
         recent.submenu = recentMenu; menu.addItem(recent)
         action("Открыть Happ", #selector(openHapp))
@@ -439,7 +508,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         let login = action("Запускать при входе", #selector(toggleLogin)); login.state = SMAppService.mainApp.status == .enabled ? .on : .off
         menu.addItem(.separator()); action("Завершить Happ Monitor", #selector(quit))
     }
-    private func time(_ date: Date) -> String { let formatter = DateFormatter(); formatter.dateFormat = "HH:mm:ss"; return formatter.string(from: date) }
+    private func time(_ date: Date) -> String { let formatter = DateFormatter(); formatter.locale = UIStrings.locale; formatter.timeStyle = .medium; return formatter.string(from: date) }
+    private func modeDescription() -> String {
+        if store.preferences.manualPause { return "Режим: пауза до ручного включения" }
+        if let until = store.preferences.pauseUntil, until > Date() { return "Режим: пауза до \(time(until))" }
+        return store.preferences.automatic ? "Режим: автовосстановление включено" : "Режим: автовосстановление выключено"
+    }
+    @objc private func cancelRecoveryByUser() { cancelRecovery("Восстановление отменено пользователем"); nextRecovery = Date().addingTimeInterval(120); rebuildMenu() }
+    @objc private func openDiagnostics() { settings.showDiagnostics(subscription: subscription, servers: serverSnapshot) }
     @objc private func checkNow() { if !probing && vpn.connected { startProbe(forCandidate: false) } }
     @objc private func recoverNow() { beginRecovery(manual: true) }
     @objc private func toggleAutomatic() { store.preferences.automatic.toggle(); store.save(); if recovering && !store.preferences.automatic { cancelRecovery("Автовосстановление выключено") }; rebuildMenu() }
@@ -448,7 +524,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         pauseDisconnectError = nil
         store.preferences.manualPause = sender.tag == -1
         store.preferences.pauseUntil = sender.tag > 0 ? Date().addingTimeInterval(Double(sender.tag * 60)) : nil
-        store.save(); generation += 1; health = nil
+        store.save(); DiagnosticLog.shared.record("pause.started", fields: ["paused": "true", "manual": String(sender.tag == -1)]); generation += 1; health = nil
         store.log(sender.tag > 0 ? "Пауза VPN на \(sender.tag) минут" : "Пауза VPN до ручного включения")
         DispatchQueue.global(qos: .utility).async { [weak self] in
             let result = runCommand("/usr/sbin/scutil", ["--nc", "stop", "Happ"], timeout: 8)
@@ -462,6 +538,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @objc private func resumeVPN() {
         store.preferences.manualPause = false; store.preferences.pauseUntil = nil; store.preferences.automatic = true; store.save()
         pauseDisconnectError = nil
+        DiagnosticLog.shared.record("pause.resumed", fields: ["paused": "false"])
         nextRecovery = .distantPast; store.log("VPN возобновлён пользователем")
         if !vpn.connected { beginRecovery(manual: true) }; rebuildMenu()
     }
@@ -471,7 +548,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     @objc private func requestAccessibility() { _ = AXIsProcessTrustedWithOptions([kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: true] as CFDictionary); NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility")!) }
     @objc private func toggleLogin() {
         do { if SMAppService.mainApp.status == .enabled { try SMAppService.mainApp.unregister() } else { try SMAppService.mainApp.register() } }
-        catch { let alert = NSAlert(); alert.messageText = "Не удалось изменить автозапуск"; alert.informativeText = error.localizedDescription; alert.runModal() }
+        catch { let alert = NSAlert(); alert.messageText = L("Не удалось изменить автозапуск"); alert.informativeText = L(error.localizedDescription); alert.runModal() }
     }
     private func writeState() {
         let state: [String: Any] = ["vpn": vpn.status, "interface": vpn.interface ?? "", "healthy": health?.healthy ?? false,
