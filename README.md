@@ -23,12 +23,12 @@
 
 При первом запуске открывается диагностика с подсказками. **Язык интерфейса монитора не меняет язык Happ:** переключение серверов по-прежнему использует команды его русскоязычного интерфейса.
 
-Галерея ниже показывает интерфейс версии 2.0. В версии 3.0 добавлены вкладки языка и диагностики.
+Галерея и GIF ниже показывают версию 3.0: меню с паузой, выбор языка, арабский интерфейс и диагностику с фильтром ошибок.
 
 ## Меню и настройки в действии
 
 <p align="center">
-  <img src="docs/assets/settings-demo.gif" alt="Зелёный HM, раскрытое меню и четыре вкладки настроек Happ Monitor" width="800">
+  <img src="docs/assets/settings-demo.gif" alt="Happ Monitor 3.0: зелёный HM, пауза, языки интерфейса и диагностика" width="800">
 </p>
 
 Анимация собрана из снимков интерфейса с демонстрационной подпиской и событиями. Верхняя панель показана схематично, чтобы оставить в кадре только HM и меню. Зелёный штрих означает, что проверка трафика прошла.
@@ -38,9 +38,13 @@
 
 [Меню в строке macOS](docs/assets/screenshots/menu-bar.png)
 
-| Основные | Страны | Серверы | История |
-|:---:|:---:|:---:|:---:|
-| [![Основные настройки](docs/assets/screenshots/settings-general.png)](docs/assets/screenshots/settings-general.png) | [![Исключение стран](docs/assets/screenshots/settings-countries.png)](docs/assets/screenshots/settings-countries.png) | [![Настройки серверов](docs/assets/screenshots/settings-servers.png)](docs/assets/screenshots/settings-servers.png) | [![История соединений](docs/assets/screenshots/settings-history.png)](docs/assets/screenshots/settings-history.png) |
+| Основные | Страны | Серверы |
+|:---:|:---:|:---:|
+| [![Основные настройки](docs/assets/screenshots/settings-general.png)](docs/assets/screenshots/settings-general.png) | [![Исключение стран](docs/assets/screenshots/settings-countries.png)](docs/assets/screenshots/settings-countries.png) | [![Настройки серверов](docs/assets/screenshots/settings-servers.png)](docs/assets/screenshots/settings-servers.png) |
+| **Язык** | **Диагностика** | **Только ошибки** |
+| [![Выбор языка](docs/assets/screenshots/settings-language.png)](docs/assets/screenshots/settings-language.png) | [![Диагностика](docs/assets/screenshots/settings-diagnostics.png)](docs/assets/screenshots/settings-diagnostics.png) | [![Фильтр ошибок](docs/assets/screenshots/settings-errors.png)](docs/assets/screenshots/settings-errors.png) |
+| **English** | **العربية** | **История** |
+| [![Английский интерфейс](docs/assets/screenshots/settings-english.png)](docs/assets/screenshots/settings-english.png) | [![Арабский интерфейс](docs/assets/screenshots/settings-arabic.png)](docs/assets/screenshots/settings-arabic.png) | [![История соединений](docs/assets/screenshots/settings-history.png)](docs/assets/screenshots/settings-history.png) |
 
 Нажмите миниатюру, чтобы открыть полный снимок.
 
