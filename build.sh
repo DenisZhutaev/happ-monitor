@@ -10,7 +10,8 @@ case "$BUILD_ARCH" in
   arm64|x86_64) ;;
   *) echo 'HAPP_BUILD_ARCH must be arm64 or x86_64.' >&2; exit 1 ;;
 esac
-mkdir -p "$APP/Contents/MacOS"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
+cp Resources/Translations.json "$APP/Contents/Resources/Translations.json"
 xcrun swiftc Sources/*.swift -target "$BUILD_ARCH-apple-macosx13.0" -module-cache-path "$PWD/.build/ModuleCache" -O -framework AppKit -framework ApplicationServices -framework SystemConfiguration -framework ServiceManagement -framework UserNotifications -o "$APP/Contents/MacOS/HappMonitor"
 cat > "$APP/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -19,9 +20,11 @@ cat > "$APP/Contents/Info.plist" <<'PLIST'
 <key>CFBundleExecutable</key><string>HappMonitor</string>
 <key>CFBundleIdentifier</key><string>local.deniszutaev.happ-monitor</string>
 <key>CFBundleName</key><string>Happ Monitor</string>
-<key>CFBundleVersion</key><string>2</string>
-<key>CFBundleShortVersionString</key><string>2.0</string>
+<key>CFBundleVersion</key><string>3</string>
+<key>CFBundleShortVersionString</key><string>3.0</string>
 <key>LSMinimumSystemVersion</key><string>13.0</string>
+<key>CFBundleDevelopmentRegion</key><string>en</string>
+<key>CFBundleLocalizations</key><array><string>ru</string><string>en</string><string>zh-Hans</string><string>es</string><string>fr</string><string>ar</string></array>
 <key>LSUIElement</key><true/>
 <key>NSHighResolutionCapable</key><true/>
 </dict></plist>
